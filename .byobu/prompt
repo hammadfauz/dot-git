@@ -1,0 +1,2 @@
+#[ -r /usr/share/byobu/profiles/bashrc ] && . /usr/share/byobu/profiles/bashrc  #byobu-prompt#
+PS1="\[\e[38;5;25m\]\w\[\e[00m\]\n${debian_chroot:+($debian_chroot)}\[\e[38;5;12m\]\\u\[\e[00m\]@\[\e[38;5;43m\]\h\[\e[00m\]$ "

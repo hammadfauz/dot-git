@@ -1,0 +1,51 @@
+# ~/.tmuxinator/spekit.yml
+
+name: spekit
+root: ~/codespace/spekit-frontend/
+
+# Optional tmux socket
+# socket_name: foo
+
+# Runs before everything. Use it to start daemons etc.
+# pre: sudo /etc/rc.d/mysqld start
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+# pre_window: rbenv shell 2.0.0-p247
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+tmux_command: byobu
+
+# Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
+# startup_window: editor
+
+# Specitifes (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
+# startup_pane: 1
+
+# Controls whether the tmux session should be attached to automatically. Defaults to true.
+# attach: false
+
+# Runs after everything. Use it to attach to tmux with custom options etc.
+# post: tmux -CC attach -t spekit
+
+windows:
+  - main:
+              
+      layout: 0c30,156x42,0,0[156x38,0,0,5,156x3,0,39{78x3,0,39,6,77x3,79,39,7}]
+      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
+      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
+      # synchronize: after
+      panes:
+        - vim:
+          - cd ~/codespace/spekit-frontend/spekit-frontend-core/src
+          - sudo service nginx restart
+        - extension:
+          - cd ~/codespace/spekit-frontend
+          - export NODE_OPTIONS=--max_old_space_size=4096
+          - yarn workspace spekit-frontend-core start
+        - webapp:
+          - cd ~/codespace/spekit-frontend
+          - export NODE_OPTIONS=--max_old_space_size=4096
+          - yarn workspace spekit-chrome-extension start
