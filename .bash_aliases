@@ -29,3 +29,6 @@ nginxProd() {
   sudo service nginx restart
 }
 
+spekit () {
+  node ~/codespace/jiratools/index.js "$@"
+}
