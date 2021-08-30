@@ -40,7 +40,6 @@ windows:
       panes:
         - vim:
           - cd ~/codespace/spekit-frontend/spekit-frontend-core/src
-          - sudo service nginx restart
         - extension:
           - cd ~/codespace/spekit-frontend
           - export NODE_OPTIONS=--max_old_space_size=4096
