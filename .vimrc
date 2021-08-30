@@ -55,4 +55,7 @@ if !isdirectory(&dir) | call mkdir(&dir, 'p', 0700) | endif
 :set mouse=a
 ":let &colorcolumn=join(range(81,999),",")
 :highlight ColorColumn ctermbg=235 guibg=#2c2d27
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 call pathogen#helptags()
