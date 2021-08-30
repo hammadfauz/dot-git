@@ -45,7 +45,8 @@ if !isdirectory(&dir) | call mkdir(&dir, 'p', 0700) | endif
 :inoremap <A-k> <C-o>k
 :inoremap <A-l> <C-o>l
 :set autoindent
-:colorscheme xoria256
+":colorscheme xoria256
+:colorscheme monokai
 :syntax on
 :set splitbelow
 :set splitright
