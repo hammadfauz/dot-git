@@ -1,4 +1,6 @@
 .config/dotgit/
+.byobu/.ssh-agent
+.vim/.netrwhist
 
 # Nixes
 .cache/
