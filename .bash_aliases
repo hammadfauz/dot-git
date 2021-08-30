@@ -39,3 +39,7 @@ nginxProd() {
 spekit () {
   node ~/codespace/jiratools/index.js "$@"
 }
+
+makenote () {
+  vi ~/notes/`date +%d-%m-%Y`_$@.md
+}
