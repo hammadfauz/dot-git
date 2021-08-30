@@ -1,9 +1,11 @@
 execute pathogen#infect()
 let g:ycm_max_diagnostics_to_display=0
-:let g:ycm_server_python_interpreter='/usr/bin/python2.7'
+:let g:python3_host_prog='/usr/bin/python3'
+:let g:python_host_prog='/usr/bin/python'
+:let g:ycm_server_python_interpreter='/usr/bin/python3'
 if !exists("g:ycm_semantic_triggers") | let g:ycm_semantic_triggers = {} | endif
 :let g:ycm_semantic_triggers['javascript.jsx'] = ['.']
-let g:ycm_python_interpreter_path = ''
+let g:ycm_python_interpreter_path = '/usr/bin'
 let g:ycm_python_sys_path = []
 let g:ycm_extra_conf_vim_data = [
   \  'g:ycm_python_interpreter_path',
