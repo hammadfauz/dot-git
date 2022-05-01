@@ -2,6 +2,8 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -178,4 +180,10 @@ _yargs_completions()
 }
 complete -o default -F _yargs_completions spekit
 ###-end-index.js-completions-###
+
+alias dot='PATH="$HOME/.config/dotgit/bin:$PATH" git --git-dir="$HOME/.config/dotgit/repo" --work-tree="$HOME"'
+
+if [ -f ~/.config/.git-completion.bash ]; then
+  . ~/.config/.git-completion.bash
+fi
 
