@@ -129,5 +129,5 @@
 [status]
     showUntrackedFiles = no
 [remote "origin"]
-	url = https://github.com/hammadfauz/dot-git.git
+	url = git+ssh://git@github.com/hammadfauz/dot-git.git
 	fetch = +refs/heads/*:refs/remotes/origin/*
