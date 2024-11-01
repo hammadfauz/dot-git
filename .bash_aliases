@@ -4,14 +4,7 @@ alias gl='cd ../../lightning/src'
 alias gs='cd ../../spekit-shared-components/src'
 alias gu='cd ../../spekit-ui/src'
 alias gd='cd ../../spekit-datalayer/src'
-alias weather='curl wttr.in'
-alias testall='pushd
-  gc && pwd && yarn test --watchAll=false --silent \
-  && gd && pwd && yarn test --watchAll=false --silent \
-  && gu && pwd && yarn test --watchAll=false --silent \
-  && gs && pwd && yarn test --watchAll=false --silent \
-  && ga && pwd && yarn test --watchAll=false --silent \
-  && popd'
+alias weather='curl wttr.in/islamabad'
 
 runeditor() {
   nvim "$@"
