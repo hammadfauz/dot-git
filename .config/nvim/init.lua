@@ -12,11 +12,25 @@ require('packer').startup(function()
   use 'hrsh7th/nvim-cmp'              -- Autocompletion
   use 'hrsh7th/cmp-nvim-lsp'          -- LSP completion
   use 'nvim-telescope/telescope.nvim' -- Fuzzy finder
+  use 'folke/flash.nvim'              -- Motion helper
   use 'vim-test/vim-test'             -- Running tests
   use 'tpope/vim-fugitive'            -- Git integration
   use 'Raimondi/delimitMate'          -- auto-close braces etc
   use 'pocco81/dap-buddy.nvim'        -- DAP installer
-  use 'mfussenegger/nvim-dap'         -- Debug Adapter Protocol
+  use {
+    'mfussenegger/nvim-dap',         -- Debug Adapter Protocol
+    config = function()
+      require('dap').adapters["pwa-node"] = {
+        type = 'server',
+        host = 'localhost',
+        port = 8123,
+        executable = {
+          command = 'node',
+          args = { vim.fn.stdpath('data') .. '/site/pack/packer/opt/vscode-js-debug/out/src/dapDebugServer.js', 8123 },
+        }
+      }
+    end,
+  }
   use 'nvim-neotest/nvim-nio'
   use {
     'rcarriga/nvim-dap-ui',           -- UI for DAP
@@ -42,16 +56,7 @@ require('packer').startup(function()
   use {
     'microsoft/vscode-js-debug',
     opt = true,
-    run = 'npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out' 
-  }
-  use {
-    'mxsdev/nvim-dap-vscode-js',     -- Debug Adapter Protocol for JavaScript
-    config = function()
-      require('dap-vscode-js').setup({
-        debugger_path = vim.fn.stdpath('data') .. "/site/pack/packer/opt/vscode-js-debug", -- Path to vscode-js-debug installation.
-        adapters = { 'chrome', 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost', 'node', 'chrome' }, -- adapters to register in nvim-dap
-      })
-    end,
+    run = 'npm install --legacy-peer-deps && npx gulp dapDebugServer && mv dist out' 
   }
   use 'github/copilot.vim'
   use {
@@ -207,6 +212,11 @@ cmp.setup({
 vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope find_files<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>fg', ':Telescope live_grep<CR>', { noremap = true, silent = true })
 
+-- Keymaps for Flash (motion helper)
+vim.api.nvim_set_keymap('n', 's', '<cmd>lua require("flash").jump()<CR>' , { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'S', '<cmd>lua require("flash").treesitter()<CR>' , { noremap = true, silent = true })
+
+
 -- Test keymaps
 vim.api.nvim_set_keymap('n', '<leader>t', ':TestNearest<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>T', ':TestFile<CR>', { noremap = true, silent = true })
@@ -251,6 +261,10 @@ for _, language in ipairs(js_based_languages) do
       name = "Attach",
       processId = require 'dap.utils'.pick_process,
       cwd = "${workspaceFolder}",
+      sourceMaps = true,
+      protocol = 'inspector',
+      outFiles = {'${workspaceFolder}/out/**/*.js'},
+      port = 5858,
     },
     {
       type = "pwa-chrome",
