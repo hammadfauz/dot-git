@@ -5,6 +5,7 @@ alias gs='cd ../../spekit-shared-components/src'
 alias gu='cd ../../spekit-ui/src'
 alias gd='cd ../../spekit-datalayer/src'
 alias weather='curl wttr.in/islamabad'
+alias tt='~/.config/switch-terminal-theme.sh'
 
 runeditor() {
   nvim "$@"
